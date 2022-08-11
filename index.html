@@ -1,5 +1,28 @@
 <title>fighting game</title>
-<canvas>
-</canvas>
+<link rel="stylesheet" href="style.css">
+
+<body>
+
+    <div class="container">
+        <div class="health-bar">
+            <!-- player health bar -->
+            <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">
+                <div style="background-color: yellow; height: 30px; width: 100%;"></div>
+                <div id="playerHealth"></div>
+            </div>
+            <!-- timer -->
+            <div class="timer"></div>
+            <!-- enemy health bar -->
+            <div style="position: relative; height: 30px; width: 100%;">
+                <div style="background-color: yellow; height: 30px; width: 100%;"></div>
+                <div id="enemyHealth"></div>
+            </div>
+
+        </div>
+        <canvas> </canvas>
+    </div>
+
+
+</body>
 
 <script src="index.js"></script>
