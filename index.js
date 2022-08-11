@@ -6,68 +6,25 @@ canvas.height = 576
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
+const background = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    imageSrc: './img/background.png'
+})
+
+const shop = new Sprite({
+    position: {
+        x: 600,
+        y: 128
+    },
+    imageSrc: './img/shop.png',
+    scale: 2.8,
+    framesMax: 6
+})
 const gravity = 0.7
-class Sprite {
-    constructor({ position, velocity, color = 'red', offset }) {
-        this.position = position
-        this.velocity = velocity
-        this.width = 50
-        this.height = 150
-        this.lastkey = undefined
-        this.attackbox = {
-            position: {
-                x: this.position.x,
-                y: this.position.y
-            },
-            offset,
-            width: 100,
-            height: 50
-        }
-        this.color = color
-        this.isAttacking = false
-        this.health = 100;
-    }
-
-    draw() {
-        c.fillStyle = this.color
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
-        // attack box
-        if (this.isAttacking) {
-            c.fillStyle = 'green'
-            c.fillRect(
-                this.attackbox.position.x,
-                this.attackbox.position.y,
-                this.attackbox.width,
-                this.attackbox.height
-            )
-        }
-    }
-
-    update() {
-        this.draw()
-        this.attackbox.position.x = this.position.x + this.attackbox.offset.x
-        this.attackbox.position.y = this.position.y
-
-        this.position.y += this.velocity.y
-        this.position.x += this.velocity.x
-        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-            this.velocity.y = 0
-        }
-        else {
-            this.velocity.y += gravity
-        }
-    }
-
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
-    }
-}
-
-const player = new Sprite({
+const player = new Fighter({
     position: {
         x: 0,
         y: 0
@@ -83,7 +40,7 @@ const player = new Sprite({
 }
 )
 
-const enemy = new Sprite({
+const enemy = new Fighter({
     position: {
         x: 400,
         y: 100
@@ -99,62 +56,7 @@ const enemy = new Sprite({
     color: 'blue'
 })
 
-const keys = {
-    a: {
-        pressed: false
-    },
-    d: {
-        pressed: false
-    },
-    w: {
-        pressed: false
-    },
-    ArrowRight: {
-        pressed: false
-    },
-    ArrowLeft: {
-        pressed: false
-    },
-    ArrowUp: {
-        pressed: false
-    }
-}
 
-function rectangularCollision({ rect1, rect2 }) {
-    if (rect1.attackbox.position.x + rect1.attackbox.width >= rect2.position.x &&
-        rect1.attackbox.position.x <= rect2.position.x + rect2.width &&
-        rect1.attackbox.position.y + rect1.attackbox.height >= rect2.position.y &&
-        rect1.attackbox.position.y <= rect2.position.y + rect2.height
-    ) return true
-    return false
-}
-
-function determineWinner({ player, enemy, timerId }) {
-    clearTimeout(timerId)
-    document.querySelector('#result').style.display = 'flex'
-    if (player.health === enemy) {
-        document.querySelector('#result').innerHTML = 'Tie'
-    }
-    else if (player.health > enemy.health) {
-        document.querySelector('#result').innerHTML = 'Player 1 wins'
-    }
-    else if (player.health < enemy.health) {
-        document.querySelector('#result').innerHTML = 'Player 2 wins'
-    }
-}
-
-let timer = 12
-let timerId
-function decreaseTimer() {
-    if (timer > 0) {
-        timerId = setTimeout(decreaseTimer, 1000)
-        timer--
-        document.querySelector('#timer').innerHTML = timer
-    }
-    if (timer == 0) {
-        determineWinner({ player, enemy, timerId })
-    }
-}
 
 decreaseTimer()
 
@@ -162,6 +64,8 @@ function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
+    background.update()
+    shop.update()
     player.update()
     enemy.update()
 
