@@ -6,7 +6,18 @@
     box-sizing: border-box;
     font-family: 'Press Start 2P', cursive;
 }
-
+body{
+    margin-left: 15px;
+    margin-top: 3px;
+    overflow: hidden;
+}
+#help{
+    display: flex;
+    flex-direction: row;
+    width: 1024px;
+    padding-bottom: 40px;
+    padding-top: 10px;
+}
 .container {
     position: relative;
     display: inline-block;
@@ -57,7 +68,7 @@
 
 #result {
     position: absolute;
-    color: white;
+    color: rgb(15, 21, 103);
     align-items: center;
     justify-content: center;
     top: 0;

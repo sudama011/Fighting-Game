@@ -42,7 +42,7 @@ function determineWinner({ player, enemy, timerId }) {
     }
 }
 
-let timer = 80
+let timer = 60
 let timerId
 function decreaseTimer() {
     if (timer > 0) {
@@ -52,5 +52,15 @@ function decreaseTimer() {
     }
     if (timer == 0) {
         determineWinner({ player, enemy, timerId })
+    }
+}
+
+function showBody() {
+    
+    if (document.getElementsByTagName('body')[0].style.overflow == 'visible') {
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    }
+    else {
+        document.getElementsByTagName('body')[0].style.overflow = 'visible'
     }
 }
