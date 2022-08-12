@@ -37,8 +37,8 @@ const player = new Fighter({
     framesMax: 8,
     scale: 2.5,
     offset: {
-        x: 210,
-        y: 154
+        x: 215,
+        y: 155
     },
     sprites: {
         idle: {
@@ -60,6 +60,10 @@ const player = new Fighter({
         attack1: {
             imageSrc: './img/samuraiMack/Attack1.png',
             framesMax: 6
+        },
+        takeHit: {
+            imageSrc: './img/samuraiMack/Take Hit - white silhouette.png',
+            framesMax: 4
         }
     },
     attackBox: {
@@ -86,8 +90,8 @@ const enemy = new Fighter({
     framesMax: 4,
     scale: 2.5,
     offset: {
-        x: 150,
-        y: 170
+        x: 215,
+        y: 167
     },
     sprites: {
         idle: {
@@ -109,14 +113,18 @@ const enemy = new Fighter({
         attack1: {
             imageSrc: './img/kenji/Attack1.png',
             framesMax: 4
+        },
+        takeHit: {
+            imageSrc: './img/kenji/Take hit.png',
+            framesMax: 3
         }
     },
     attackBox: {
         offset: {
-            x: -100,
+            x: -170,
             y: 50
         },
-        width: 150,
+        width: 170,
         height: 50
     }
 })
@@ -178,12 +186,12 @@ function animate() {
     else if (enemy.velocity.y > 0) {
         enemy.switchSprites('fall')
     }
-    // detect for collision
+    // detect for collision & enemy gets hit
     if (rectangularCollision({ rect1: player, rect2: enemy }) &&
-        player.isAttacking && 
+        player.isAttacking &&
         player.framesCurrent === 4) {
+        enemy.takeHit()
         player.isAttacking = false
-        enemy.health -= 20
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
@@ -191,11 +199,13 @@ function animate() {
     if (player.isAttacking && player.framesCurrent === 4) {
         player.isAttacking = false
     }
+
+    // player gets hit
     if (rectangularCollision({ rect1: enemy, rect2: player }) &&
         enemy.isAttacking &&
         enemy.framesCurrent === 2) {
+        player.takeHit()
         enemy.isAttacking = false
-        player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health + '%'
     }
 
