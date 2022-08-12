@@ -46,7 +46,16 @@ class Sprite {
 }
 
 class Fighter extends Sprite {
-    constructor({ position, velocity, color = 'red', imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }, sprites }) {
+    constructor({ position,
+        velocity,
+        color = 'red',
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        sprites,
+        attackBox = { offset: {}, width: undefined, height: undefined }
+    }) {
 
         super({
             position,
@@ -65,9 +74,9 @@ class Fighter extends Sprite {
                 x: this.position.x,
                 y: this.position.y
             },
-            offset,
-            width: 100,
-            height: 50
+            offset: attackBox.offset,
+            width: attackBox.width,
+            height: attackBox.height
         }
         this.color = color
         this.isAttacking = false
@@ -87,8 +96,12 @@ class Fighter extends Sprite {
         this.draw()
         this.animateFrames()
 
+        // attack boxes
         this.attackbox.position.x = this.position.x + this.attackbox.offset.x
-        this.attackbox.position.y = this.position.y
+        this.attackbox.position.y = this.position.y + this.attackbox.offset.y
+
+        // draw attackbox
+        // c.fillRect(this.attackbox.position.x, this.attackbox.position.y, this.attackbox.width, this.attackbox.height)
 
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -106,9 +119,6 @@ class Fighter extends Sprite {
     attack() {
         this.switchSprites('attack1')
         this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
     }
 
     switchSprites(sprite) {
