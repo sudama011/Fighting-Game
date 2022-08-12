@@ -42,7 +42,7 @@ function determineWinner({ player, enemy, timerId }) {
     }
 }
 
-let timer = 12
+let timer = 80
 let timerId
 function decreaseTimer() {
     if (timer > 0) {
