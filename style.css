@@ -1,5 +1,10 @@
+:root {
+    --healthColor: #6694c3;
+}
+
 * {
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .container {
@@ -19,17 +24,18 @@
 
 #playerHealth {
     position: absolute;
-    background-color: blue;
+    background-color: var(--healthColor);
     top: 0;
     right: 0;
     bottom: 0;
     height: 30px;
     width: 100%;
+
 }
 
 #enemyHealth {
     position: absolute;
-    background-color: blue;
+    background-color: var(--healthColor);
     top: 0;
     left: 0;
     bottom: 0;
@@ -38,22 +44,23 @@
 }
 
 #timer {
-    background-color: red;
+    background-color: rgb(29, 36, 36);
     width: 100px;
-    height: 100px;
+    height: 50px;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* font-size: xx-large; */
+    color: white;
+    border: 4px solid white;
 }
 
-#result{
+#result {
     position: absolute;
     color: white;
     align-items: center;
     justify-content: center;
-    top:0;
+    top: 0;
     right: 0;
     left: 0;
     bottom: 0;
