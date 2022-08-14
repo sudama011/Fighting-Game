@@ -56,9 +56,10 @@ function decreaseTimer() {
 }
 
 function showBody() {
-    
+
     if (document.getElementsByTagName('body')[0].style.overflow == 'visible') {
         document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+        document.documentElement.scrollTop = 0;
     }
     else {
         document.getElementsByTagName('body')[0].style.overflow = 'visible'
